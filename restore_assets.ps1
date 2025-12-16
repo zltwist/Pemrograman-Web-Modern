@@ -1,0 +1,14 @@
+$svgContent = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="31.88" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 257"><defs><linearGradient id="IconifyId1813088fe1fbc01fb466" x1="-.828%" x2="57.636%" y1="7.652%" y2="78.411%"><stop offset="0%" stop-color="#41D1FF"></stop><stop offset="100%" stop-color="#BD34FE"></stop></linearGradient><linearGradient id="IconifyId1813088fe1fbc01fb467" x1="43.376%" x2="50.316%" y1="2.242%" y2="89.03%"><stop offset="0%" stop-color="#FFEA83"></stop><stop offset="8.333%" stop-color="#FFDD35"></stop><stop offset="100%" stop-color="#FFA800"></stop></linearGradient></defs><path fill="url(#IconifyId1813088fe1fbc01fb466)" d="M255.153 37.938L134.897 252.976c-2.483 4.44-8.862 4.466-11.382.048L.875 37.958c-1.986-3.474.53-7.825 4.522-7.825h245.236c3.989 0 6.513 4.337 4.52 7.805z"></path><path fill="url(#IconifyId1813088fe1fbc01fb467)" d="M185.432.003L.875 37.958c-1.986-3.474.53-7.825 4.522-7.825h245.236c3.989 0 6.513 4.337 4.52 7.805l-61.667 110.224L185.432.003z"></path></svg>'
+
+$folders = Get-ChildItem -Directory -Filter "praktik-*"
+foreach ($folder in $folders) {
+    $publicDir = Join-Path $folder.FullName "public"
+    if (-not (Test-Path $publicDir)) {
+        New-Item -ItemType Directory -Path $publicDir | Out-Null
+    }
+    $svgPath = Join-Path $publicDir "vite.svg"
+    if (-not (Test-Path $svgPath)) {
+        Set-Content -Path $svgPath -Value $svgContent
+        Write-Host "Created $svgPath"
+    }
+}
