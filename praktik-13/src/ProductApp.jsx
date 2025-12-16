@@ -1,244 +1,164 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-// Ganti URL ini dengan alamat file api.php Anda
-const API_URL = 'http://localhost:8080/api.php';
+const defaultProducts = [
+  { id: 1, name: 'Laptop Pro 15"', price: 15500000 },
+  { id: 2, name: 'Mechanical Keyboard', price: 1350000 },
+  { id: 3, name: 'Noise Cancelling Headset', price: 2750000 },
+];
 
-function ProductApp() {
-    const [products, setProducts] = useState([]);
-    const [newProduct, setNewProduct] = useState({ name: '', price: '' });
-    const [editingProduct, setEditingProduct] = useState(null); // Produk yang sedang di-edit
-    const [error, setError] = useState(null);
+const ProductApp = () => {
+  const [products, setProducts] = useState(defaultProducts);
+  const [form, setForm] = useState({ id: null, name: '', price: '' });
+  const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState('');
 
-    // --- READ: Mengambil semua produk ---
-    const fetchProducts = () => {
-        setError(null);
-        fetch(API_URL)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Gagal mengambil data produk');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    setProducts(data.data);
-                } else {
-                    setError(data.message || 'Gagal mengambil data produk.');
-                }
-            })
-            .catch(err => {
-                console.warn('Backend offline, switching to demo mode');
-                setProducts([
-                    { id: 1, name: 'Laptop (Demo Data)', price: 15000000 },
-                    { id: 2, name: 'Mouse (Demo Data)', price: 250000 },
-                    { id: 3, name: 'Keyboard (Demo Data)', price: 500000 },
-                ]);
-                setError('Info: Backend tidak terhubung (localhost). Menggunakan data simulasi.');
-            });
-    };
+  const resetForm = () => {
+    setForm({ id: null, name: '', price: '' });
+    setIsEditing(false);
+    setError('');
+  };
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
 
-    // --- CREATE: Menambahkan produk baru ---
-    const handleAddProduct = (e) => {
-        e.preventDefault();
-        setError(null);
+  const validate = () => {
+    if (!form.name.trim()) {
+      setError('Nama produk wajib diisi.');
+      return false;
+    }
+    const parsedPrice = Number(form.price);
+    if (Number.isNaN(parsedPrice) || parsedPrice <= 0) {
+      setError('Harga harus berupa angka positif.');
+      return false;
+    }
+    return true;
+  };
 
-        const priceValue = parseFloat(newProduct.price);
-        if (!newProduct.name || isNaN(priceValue) || priceValue <= 0) {
-            setError("Nama produk dan harga yang valid harus diisi.");
-            return;
-        }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-        fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ name: newProduct.name, price: priceValue }),
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Gagal menambah produk');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    setNewProduct({ name: '', price: '' }); // Kosongkan form
-                    fetchProducts(); // Refresh daftar
-                } else {
-                    setError(data.message || 'Gagal menambah produk.');
-                }
-            })
-            .catch(err => {
-                console.warn('Backend offline, simulating add');
-                const newId = products.length > 0 ? Math.max(...products.map(p => parseInt(p.id))) + 1 : 1;
-                setProducts([...products, { id: newId, name: newProduct.name, price: parseFloat(newProduct.price) }]);
-                setNewProduct({ name: '', price: '' });
-                alert('Simulasi: Produk berhasil ditambahkan (Backend Offline).');
-            });
-    };
+    const parsedPrice = Number(form.price);
 
-    // --- UPDATE: Memperbarui produk ---
-    const handleUpdateProduct = (e) => {
-        e.preventDefault();
-        setError(null);
-        if (!editingProduct) return;
+    if (isEditing) {
+      setProducts((prev) =>
+        prev.map((product) =>
+          product.id === form.id ? { ...product, name: form.name.trim(), price: parsedPrice } : product
+        )
+      );
+    } else {
+      const nextId = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
+      setProducts((prev) => [
+        ...prev,
+        {
+          id: nextId,
+          name: form.name.trim(),
+          price: parsedPrice,
+        },
+      ]);
+    }
 
-        const priceValue = parseFloat(editingProduct.price);
-        if (!editingProduct.name || isNaN(priceValue) || priceValue <= 0) {
-            setError("Nama produk dan harga yang valid harus diisi.");
-            return;
-        }
+    resetForm();
+  };
 
-        fetch(`${API_URL}?id=${editingProduct.id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Menggunakan method: 'PUT' dengan body JSON
-            body: JSON.stringify({ name: editingProduct.name, price: priceValue }),
-        })
-            .then(response => {
-                if (response.status === 404) {
-                    throw new Error('Produk tidak ditemukan atau tidak ada perubahan data.');
-                }
-                if (!response.ok) {
-                    throw new Error('Gagal memperbarui produk');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    setEditingProduct(null); // Selesai edit
-                    fetchProducts(); // Refresh daftar
-                } else {
-                    setError(data.message || 'Gagal memperbarui produk.');
-                console.warn('Backend offline, simulating update');
-                setProducts(products.map(p => p.id === editingProduct.id ? { ...p, name: editingProduct.name, price: parseFloat(editingProduct.price) } : p));
-                setEditingProduct(null);
-                alert('Simulasi: Produk berhasil diperbarui (Backend Offline).'
-            .catch(err => {
-                setError('Error koneksi atau data: ' + err.message);
-                console.error('Put error:', err);
-            });
-    };
+  const startEdit = (product) => {
+    setForm({ id: product.id, name: product.name, price: product.price });
+    setIsEditing(true);
+    setError('');
+  };
 
-    // --- DELETE: Menghapus produk ---
-    const handleDeleteProduct = (id) => {
-        setError(null);
-        if (window.confirm('Yakin ingin menghapus produk ini?')) {
-            fetch(`${API_URL}?id=${id}`, {
-                method: 'DELETE',
-            })
-                .then(response => {
-                    if (response.status === 404) {
-                        throw new Error('Produk tidak ditemukan.');
-                    }
-                    if (!response.ok) {
-                        throw new Error('Gagal menghapus produk');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        fetchProducts(); // Refresh daftar
-                    } else {
-                        setError(data.message || 'Gagal menghapus produk.');
-                    }
-                })console.warn('Backend offline, simulating delete');
-                    setProducts(products.filter(p => p.id !== id));
-                    alert('Simulasi: Produk berhasil dihapus (Backend Offline).'
-                    setError('Error koneksi atau data: ' + err.message);
-                    console.error('Delete error:', err);
-                });
-        }
-    };
+  const deleteProduct = (id) => {
+    if (!window.confirm('Yakin ingin menghapus produk ini?')) return;
+    setProducts((prev) => prev.filter((product) => product.id !== id));
+    if (isEditing && form.id === id) {
+      resetForm();
+    }
+  };
 
-    // --- Render (Tampilan) ---
-    return (
-        <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-            <h1>Manajemen Produk &#128722;</h1>
+  return (
+    <div style={{ padding: 20 }}>
+      <h1>Manajemen Produk</h1>
+      {error && (
+        <p style={{ color: 'red', border: '1px solid red', padding: 10 }}>
+          {error}
+        </p>
+      )}
 
-            {error && <p style={{ color: 'red', border: '1px solid red', padding: '10px' }}>Error: {error}</p>}
-
-            {/* Form Tambah/Edit */}
-            <h2>{editingProduct ? 'Edit Produk' : 'Tambah Produk Baru'}</h2>
-            <form onSubmit={editingProduct ? handleUpdateProduct : handleAddProduct}>
-                <input
-                    type="text"
-                    placeholder="Nama Produk"
-                    value={editingProduct ? editingProduct.name : newProduct.name}
-                    onChange={(e) =>
-                        editingProduct
-                            ? setEditingProduct({ ...editingProduct, name: e.target.value })
-                            : setNewProduct({ ...newProduct, name: e.target.value })
-                    }
-                    required
-                />
-                <input
-                    type="number"
-                    placeholder="Harga"
-                    value={editingProduct ? editingProduct.price : newProduct.price}
-                    onChange={(e) =>
-                        editingProduct
-                            ? setEditingProduct({ ...editingProduct, price: e.target.value })
-                            : setNewProduct({ ...newProduct, price: e.target.value })
-                    }
-                    step="0.01"
-                    required
-                />
-                <button type="submit">
-                    {editingProduct ? 'Simpan Perubahan' : 'Tambah Produk'}
-                </button>
-                {editingProduct && (
-                    <button type="button" onClick={() => setEditingProduct(null)}>
-                        Batal Edit
-                    </button>
-                )}
-            </form>
-
-            <hr style={{ margin: '20px 0' }} />
-
-            {/* Daftar Produk */}
-            <h2>Daftar Produk</h2>
-            {products.length === 0 ? (
-                <p>Tidak ada produk ditemukan.</p>
-            ) : (
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {products.map(product => (
-                                <tr key={product.id}>
-                                    <td>{product.id}</td>
-                                    <td>{product.name}</td>
-                                    <td>{parseFloat(product.price).toFixed(2)}</td>
-                                    <td>
-                                        <button onClick={() => setEditingProduct({ ...product })}>Edit</button>
-                                        <button onClick={() => handleDeleteProduct(product.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>Hapus</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+      <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 10 }}>
+          <label style={{ display: 'block', marginBottom: 4 }}>Nama Produk</label>
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Nama produk"
+            style={{ width: '100%', padding: 8 }}
+          />
         </div>
-    );
-}
+
+        <div style={{ marginBottom: 10 }}>
+          <label style={{ display: 'block', marginBottom: 4 }}>Harga (Rp)</label>
+          <input
+            type="number"
+            name="price"
+            value={form.price}
+            onChange={handleChange}
+            placeholder="Contoh: 250000"
+            style={{ width: '100%', padding: 8 }}
+          />
+        </div>
+
+        <button type="submit">
+          {isEditing ? 'Simpan Perubahan' : 'Tambah Produk'}
+        </button>
+        {isEditing && (
+          <button type="button" onClick={resetForm} style={{ marginLeft: 10 }}>
+            Batal
+          </button>
+        )}
+      </form>
+
+      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>ID</th>
+            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Nama</th>
+            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Harga</th>
+            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {products.length === 0 ? (
+            <tr>
+              <td colSpan={4} style={{ padding: 12, textAlign: 'center' }}>
+                Belum ada data produk.
+              </td>
+            </tr>
+          ) : (
+            products.map((product) => (
+              <tr key={product.id}>
+                <td style={{ padding: 8 }}>{product.id}</td>
+                <td style={{ padding: 8 }}>{product.name}</td>
+                <td style={{ padding: 8 }}>Rp {product.price.toLocaleString('id-ID')}</td>
+                <td style={{ padding: 8 }}>
+                  <button onClick={() => startEdit(product)}>Edit</button>
+                  <button
+                    onClick={() => deleteProduct(product.id)}
+                    style={{ marginLeft: 8, backgroundColor: '#d9534f', color: '#fff' }}
+                  >
+                    Hapus
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
 export default ProductApp;

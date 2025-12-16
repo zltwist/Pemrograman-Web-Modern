@@ -12,26 +12,28 @@ const App = () => {
   return (
     <>
       <Identity />
-      <BrowserRouter basename="/praktik-08-lanjutan">
-        <Routes>
-          <Route 
-            path="/" 
-            element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            } 
-          >
-            {/* Rute yang berada di dalam Layout dan dilindungi oleh ProtectedRoute */}
-            <Route index element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="logout" element={<Logout />} />
-          </Route>
-          
-          {/* Rute yang tidak menggunakan Layout dan tidak dilindungi */}
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+      <div className="rangga-wrapper">
+        <BrowserRouter basename="/praktik-08-lanjutan">
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              } 
+            >
+              {/* Rute yang berada di dalam Layout dan dilindungi oleh ProtectedRoute */}
+              <Route index element={<Dashboard />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="logout" element={<Logout />} />
+            </Route>
+            
+            {/* Rute yang tidak menggunakan Layout dan tidak dilindungi */}
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
   );
 };

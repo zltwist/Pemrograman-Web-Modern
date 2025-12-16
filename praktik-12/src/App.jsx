@@ -6,9 +6,11 @@ const App = () => {
   return (
     <>
       <Identity />
-      <div style={{ padding: 20 }}>
-        <h2>Redux Toolkit Counter Example</h2>
-        <Counter />
+      <div className="rangga-wrapper">
+        <div style={{ padding: 20 }}>
+          <h2>Redux Toolkit Counter Example</h2>
+          <Counter />
+        </div>
       </div>
     </>
   );

@@ -8,5 +8,9 @@
         "distDir": "dist"
       }
     }
+  ],
+  "rewrites": [
+    { "source": "/praktik-08/((?!assets/|.*\\..*).*)", "destination": "/praktik-08/index.html" },
+    { "source": "/praktik-08-lanjutan/((?!assets/|.*\\..*).*)", "destination": "/praktik-08-lanjutan/index.html" }
   ]
 }
