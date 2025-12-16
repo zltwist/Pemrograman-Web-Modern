@@ -30,11 +30,12 @@ folders.forEach(folder => {
     console.log(`\nProcessing ${folder}...`);
 
     try {
-        // Install dependencies if needed
-        if (!fs.existsSync(path.join(folderPath, 'node_modules'))) {
-            console.log(`Installing dependencies for ${folder}...`);
-            execSync('npm install', { cwd: folderPath, stdio: 'inherit' });
-        }
+        // Always install dependencies to ensure CI environments (like Vercel)
+        // pick up changes in package.json even when node_modules is cached.
+        console.log(`Installing dependencies for ${folder}...`);
+        const lockFile = fs.existsSync(path.join(folderPath, 'package-lock.json'));
+        const installCmd = lockFile ? 'npm ci' : 'npm install';
+        execSync(installCmd, { cwd: folderPath, stdio: 'inherit' });
 
         // Build
         console.log(`Building ${folder}...`);
