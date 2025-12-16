@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Tugas Praktik - Rizal Sinaga</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            margin: 40px 20px;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        .identity {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #007bff;
+            font-size: 1.1rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .tag {
+            display: inline-block;
+            background: #e3f2fd;
+            color: #0d47a1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            align-self: flex-start;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tugas Praktik React</h1>
+            <div class="subtitle">Pemrograman Web Modern</div>
+            <div class="identity">Rizal Sinaga - PSIK 23 D</div>
+        </header>
+
+        <div class="grid">
+            <a href="./praktik-01/index.html" class="card">
+                <div>
+                    <h3>Praktik 01</h3>
+                    <p>Pengenalan React & JSX</p>
+                </div>
+                <span class="tag">Basic</span>
+            </a>
+            <a href="./praktik-02/index.html" class="card">
+                <div>
+                    <h3>Praktik 02</h3>
+                    <p>Komponen & Props</p>
+                </div>
+                <span class="tag">Components</span>
+            </a>
+            <a href="./praktik-03/index.html" class="card">
+                <div>
+                    <h3>Praktik 03</h3>
+                    <p>Styling & Assets</p>
+                </div>
+                <span class="tag">Styling</span>
+            </a>
+            <a href="./praktik-04/index.html" class="card">
+                <div>
+                    <h3>Praktik 04</h3>
+                    <p>Event Handling</p>
+                </div>
+                <span class="tag">Events</span>
+            </a>
+            <a href="./praktik-05/index.html" class="card">
+                <div>
+                    <h3>Praktik 05</h3>
+                    <p>State Management</p>
+                </div>
+                <span class="tag">State</span>
+            </a>
+            <a href="./praktik-06/index.html" class="card">
+                <div>
+                    <h3>Praktik 06</h3>
+                    <p>Lifecycle & Effects</p>
+                </div>
+                <span class="tag">Hooks</span>
+            </a>
+            <a href="./praktik-07/index.html" class="card">
+                <div>
+                    <h3>Praktik 07</h3>
+                    <p>Data Fetching (Axios)</p>
+                </div>
+                <span class="tag">API</span>
+            </a>
+            <a href="./praktik-08/index.html" class="card">
+                <div>
+                    <h3>Praktik 08</h3>
+                    <p>React Router</p>
+                </div>
+                <span class="tag">Routing</span>
+            </a>
+            <a href="./praktik-08-lanjutan/index.html" class="card">
+                <div>
+                    <h3>Praktik 08 (Lanjutan)</h3>
+                    <p>Advanced Routing</p>
+                </div>
+                <span class="tag">Routing</span>
+            </a>
+            <a href="./praktik-09/index.html" class="card">
+                <div>
+                    <h3>Praktik 09</h3>
+                    <p>Context API & Global State</p>
+                </div>
+                <span class="tag">Context</span>
+            </a>
+            <a href="./praktik-10/index.html" class="card">
+                <div>
+                    <h3>Praktik 10</h3>
+                    <p>Styling Libraries (MUI/Tailwind)</p>
+                </div>
+                <span class="tag">UI Libs</span>
+            </a>
+            <a href="./praktik-11/index.html" class="card">
+                <div>
+                    <h3>Praktik 11</h3>
+                    <p>Custom Hooks</p>
+                </div>
+                <span class="tag">Hooks</span>
+            </a>
+            <a href="./praktik-12/index.html" class="card">
+                <div>
+                    <h3>Praktik 12</h3>
+                    <p>Form Handling & Validation</p>
+                </div>
+                <span class="tag">Forms</span>
+            </a>
+            <a href="./praktik-13/index.html" class="card">
+                <div>
+                    <h3>Praktik 13</h3>
+                    <p>Final Project / Integration</p>
+                </div>
+                <span class="tag">Final</span>
+            </a>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Rizal Sinaga. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
