@@ -23,6 +23,7 @@ const App = () => {
           <Route path="logout" element={<Logout />} />
         </Route>
         <Route path="/login" element={<Login />} />
+        <Route path="/index.html" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
