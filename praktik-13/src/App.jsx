@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import ProductApp from './ProductApp'
+import Identity from './components/Identity'
 import './App.css'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
 
   return (
     <>
+      <Identity />
       <div className="portfolio-wrapper">
         <ProductApp />
       </div>

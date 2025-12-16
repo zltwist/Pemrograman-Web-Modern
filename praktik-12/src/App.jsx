@@ -1,12 +1,18 @@
-import React from "react";
+import Identity from "./components/Identity.jsx";
 import Counter from "./components/Counter.jsx";
+import "./App.css";
 
 const App = () => {
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Redux Toolkit Counter Example</h2>
-      <Counter />
-    </div>
+    <>
+      <Identity />
+      <div className="app-shell">
+        <h2>Redux Toolkit Counter</h2>
+        <div className="counter-panel">
+          <Counter />
+        </div>
+      </div>
+    </>
   );
 };
 
