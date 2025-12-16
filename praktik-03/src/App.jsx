@@ -12,7 +12,7 @@ function App() {
   // State untuk data user yang login
   const [currentUser] = useState({
     name: 'Admin',
-    avatar: './admin.png'
+    avatar: 'vite.svg'
   });
 
   // State untuk data users
@@ -22,7 +22,7 @@ function App() {
       name: 'Ahmad Rizki',
       email: 'ahmad@example.com',
       role: 'Admin',
-      avatar: './user.png',
+      avatar: 'vite.svg',
       isActive: true
     },
     {
@@ -30,7 +30,7 @@ function App() {
       name: 'Sari Dewi',
       email: 'sari@example.com',
       role: 'User',
-      avatar: './user.png',
+      avatar: 'vite.svg',
       isActive: true
     },
     {
@@ -38,7 +38,7 @@ function App() {
       name: 'Budi Santoso',
       email: 'budi@example.com',
       role: 'Moderator',
-      avatar: './user.png',
+      avatar: 'vite.svg',
       isActive: false
     }
   ]);

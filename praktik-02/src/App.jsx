@@ -9,7 +9,7 @@ function App() {
   const userData = {
     name: "Sarah Johnson",
     email: "sarah@example.com",
-    avatar: "/vite.svg",
+    avatar: "vite.svg",
     joinDate: "2023-01-15"
   };
 
