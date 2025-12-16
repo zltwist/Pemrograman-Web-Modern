@@ -6,7 +6,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <>
       <h1>Halo Vite dan React</h1>
     </>
