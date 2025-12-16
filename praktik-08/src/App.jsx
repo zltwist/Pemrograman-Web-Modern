@@ -15,7 +15,7 @@ function App() {
     <>
 <Identity />
 <div className="rangga-wrapper">
-<BrowserRouter>
+<BrowserRouter basename="/praktik-08">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homes />} />
