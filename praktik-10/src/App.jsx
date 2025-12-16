@@ -11,38 +11,45 @@ import { Typography } from '@mui/material';
 function App() {
   return (
     <div className="app">
-      <Typography variant="h5" component="h1" gutterBottom>
-        Demo Berbagai Metode Styling di React
-      </Typography>
+      <header className="app-hero">
+        <Typography variant="h4" component="h1" gutterBottom>
+          Demo Berbagai Metode Styling di React
+        </Typography>
+        <p>
+          Contoh implementasi mulai dari CSS biasa sampai komponen framework modern, semuanya dalam satu halaman.
+        </p>
+      </header>
 
-      <div className="demo-section">
-        <h2>1. Basic CSS</h2>
-        <BasicCSS />
-      </div>
+      <div className="demo-grid">
+        <section className="demo-section">
+          <h2>1. Basic CSS</h2>
+          <BasicCSS />
+        </section>
 
-      <div className="demo-section">
-        <h2>2. CSS Modules</h2>
-        <CSSModules />
-      </div>
+        <section className="demo-section">
+          <h2>2. CSS Modules</h2>
+          <CSSModules />
+        </section>
 
-      <div className="demo-section">
-        <h2>3. Styled Components</h2>
-        <StyledComponents />
-      </div>
+        <section className="demo-section">
+          <h2>3. Styled Components</h2>
+          <StyledComponents />
+        </section>
 
-      <div className="demo-section">
-        <h2>4. Tailwind CSS</h2>
-        <TailwindCSS />
-      </div>
+        <section className="demo-section">
+          <h2>4. Tailwind CSS</h2>
+          <TailwindCSS />
+        </section>
 
-      <div className="demo-section">
-        <h2>5. Conditional Styling</h2>
-        <ConditionalStyling />
-      </div>
+        <section className="demo-section">
+          <h2>5. Conditional Styling</h2>
+          <ConditionalStyling />
+        </section>
 
-      <div className="demo-section">
-        <h2>6. Material UI</h2>
-        <MaterialUI />
+        <section className="demo-section">
+          <h2>6. Material UI</h2>
+          <MaterialUI />
+        </section>
       </div>
     </div>
   );

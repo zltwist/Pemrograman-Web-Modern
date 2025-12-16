@@ -1,10 +1,13 @@
 import Counter from "./components/Counter.jsx";
+import "./App.css";
 
 const App = () => {
   return (
-    <div style={{ padding: 20 }}>
+    <div className="app-shell">
       <h2>Redux Toolkit Counter Example</h2>
-      <Counter />
+      <div className="counter-card">
+        <Counter />
+      </div>
     </div>
   );
 };

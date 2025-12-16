@@ -1,0 +1,64 @@
+#root {
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem 1rem 3rem;
+  background: radial-gradient(circle at top, #e0edff 0%, #eef2ff 45%, #ffffff 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+}
+
+header {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  color: #0f172a;
+  font-size: 1.8rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #475569;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+nav a:hover {
+  border-color: #cbd5f5;
+  color: #1d4ed8;
+}
+
+main {
+  min-height: 200px;
+  margin-bottom: 24px;
+}
+
+footer {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
