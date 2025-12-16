@@ -27,8 +27,13 @@ function ProductApp() {
                 }
             })
             .catch(err => {
-                setError('Error koneksi: ' + err.message);
-                console.error('Fetch error:', err);
+                console.warn('Backend offline, switching to demo mode');
+                setProducts([
+                    { id: 1, name: 'Laptop (Demo Data)', price: 15000000 },
+                    { id: 2, name: 'Mouse (Demo Data)', price: 250000 },
+                    { id: 3, name: 'Keyboard (Demo Data)', price: 500000 },
+                ]);
+                setError('Info: Backend tidak terhubung (localhost). Menggunakan data simulasi.');
             });
     };
 
@@ -70,8 +75,11 @@ function ProductApp() {
                 }
             })
             .catch(err => {
-                setError('Error koneksi: ' + err.message);
-                console.error('Post error:', err);
+                console.warn('Backend offline, simulating add');
+                const newId = products.length > 0 ? Math.max(...products.map(p => parseInt(p.id))) + 1 : 1;
+                setProducts([...products, { id: newId, name: newProduct.name, price: parseFloat(newProduct.price) }]);
+                setNewProduct({ name: '', price: '' });
+                alert('Simulasi: Produk berhasil ditambahkan (Backend Offline).');
             });
     };
 
@@ -111,8 +119,10 @@ function ProductApp() {
                     fetchProducts(); // Refresh daftar
                 } else {
                     setError(data.message || 'Gagal memperbarui produk.');
-                }
-            })
+                console.warn('Backend offline, simulating update');
+                setProducts(products.map(p => p.id === editingProduct.id ? { ...p, name: editingProduct.name, price: parseFloat(editingProduct.price) } : p));
+                setEditingProduct(null);
+                alert('Simulasi: Produk berhasil diperbarui (Backend Offline).'
             .catch(err => {
                 setError('Error koneksi atau data: ' + err.message);
                 console.error('Put error:', err);
@@ -142,8 +152,9 @@ function ProductApp() {
                     } else {
                         setError(data.message || 'Gagal menghapus produk.');
                     }
-                })
-                .catch(err => {
+                })console.warn('Backend offline, simulating delete');
+                    setProducts(products.filter(p => p.id !== id));
+                    alert('Simulasi: Produk berhasil dihapus (Backend Offline).'
                     setError('Error koneksi atau data: ' + err.message);
                     console.error('Delete error:', err);
                 });
