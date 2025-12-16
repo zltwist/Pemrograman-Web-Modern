@@ -200,29 +200,31 @@ function ProductApp() {
             {products.length === 0 ? (
                 <p>Tidak ada produk ditemukan.</p>
             ) : (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map(product => (
-                            <tr key={product.id}>
-                                <td>{product.id}</td>
-                                <td>{product.name}</td>
-                                <td>{parseFloat(product.price).toFixed(2)}</td>
-                                <td>
-                                    <button onClick={() => setEditingProduct({ ...product })}>Edit</button>
-                                    <button onClick={() => handleDeleteProduct(product.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>Hapus</button>
-                                </td>
+                <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Harga</th>
+                                <th>Aksi</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {products.map(product => (
+                                <tr key={product.id}>
+                                    <td>{product.id}</td>
+                                    <td>{product.name}</td>
+                                    <td>{parseFloat(product.price).toFixed(2)}</td>
+                                    <td>
+                                        <button onClick={() => setEditingProduct({ ...product })}>Edit</button>
+                                        <button onClick={() => handleDeleteProduct(product.id)} style={{ marginLeft: '10px', backgroundColor: 'red', color: 'white' }}>Hapus</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
     );
