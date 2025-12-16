@@ -1,65 +1,35 @@
-import React, { createContext, useContext, useState } from 'react'
-import './App.css'
-import Identity from './components/Identity'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 
-// Context Creation
-const ThemeContext = createContext();
-
-function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState('light');
-  
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
+const App = () => {
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
+    <BrowserRouter basename="/praktik-08-lanjutan">
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          } 
+        >
+          {/* Rute yang berada di dalam Layout dan dilindungi oleh ProtectedRoute */}
+          <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="logout" element={<Logout />} />
+        </Route>
+        
+        {/* Rute yang tidak menggunakan Layout dan tidak dilindungi */}
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
-function ThemedContent() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  
-  return (
-    <div style={{
-      padding: '20px',
-      backgroundColor: theme === 'light' ? '#eee' : '#333',
-      color: theme === 'light' ? '#333' : '#eee',
-      borderRadius: '8px',
-      marginTop: '20px'
-    }}>
-      <h3>Current Theme: {theme.toUpperCase()}</h3>
-      <p>Ini adalah contoh penggunaan Context API untuk Global State Management.</p>
-      <button onClick={toggleTheme} style={{
-        padding: '10px 20px',
-        cursor: 'pointer',
-        backgroundColor: theme === 'light' ? '#333' : '#eee',
-        color: theme === 'light' ? '#eee' : '#333',
-        border: 'none',
-        borderRadius: '5px'
-      }}>
-        Switch Theme
-      </button>
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <>
-      <Identity />
-      <div className="container">
-        <h1>Praktik 8 Lanjutan: Context API</h1>
-        <div className="content-placeholder">
-          <ThemeProvider>
-            <ThemedContent />
-          </ThemeProvider>
-        </div>
-      </div>
-    </>
-  )
-}
-
-export default App
+export default App;

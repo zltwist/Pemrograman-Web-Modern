@@ -1,14 +1,11 @@
-// File: src/pages/Homes.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Homes = () => {
+const Home = () => {
   return (
-    <div className="homes-page page">
-      <div classname="page-content">
-        <h1>&#127968; Welcome to Our Website</h1>
-        <p>Ini adalah halaman home menggunakan React Router</p>
-      </div>
+    <div className="page home-page">
+      <h1>&#127968; Welcome to Our Website</h1>
+      <p>Ini adalah halaman home menggunakan React Router</p>
 
       <div className="feature-cards">
         <div className="card">
@@ -39,4 +36,4 @@ const Homes = () => {
   );
 };
 
-export default Homes;
+export default Home;
