@@ -1,15 +1,8 @@
 // File: src/components/Navigation.jsx
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navigation = () => {
-  const location = useLocation();
-
-  // Function untuk mengecek apakah link aktif
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
-
   return (
     <nav className="navigation">
       <div className="nav-brand">
@@ -18,36 +11,37 @@ const Navigation = () => {
 
       <ul className="nav-links">
         <li>
-          <Link
+          <NavLink
             to="/"
-            className={isActive('/') ? 'active' : ''}
+            className={({ isActive }) => isActive ? 'active' : ''}
+            end
           >
             Home
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
+          <NavLink
             to="/about"
-            className={isActive('/about') ? 'active' : ''}
+            className={({ isActive }) => isActive ? 'active' : ''}
           >
             About
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
+          <NavLink
             to="/products"
-            className={isActive('/products') ? 'active' : ''}
+            className={({ isActive }) => isActive ? 'active' : ''}
           >
             Products
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
+          <NavLink
             to="/contact"
-            className={isActive('/contact') ? 'active' : ''}
+            className={({ isActive }) => isActive ? 'active' : ''}
           >
             Contact
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>
