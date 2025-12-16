@@ -37,6 +37,8 @@ body {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
+  position: relative;
+  overflow: hidden;
 }
 
 .demo-section h2 {
@@ -45,4 +47,19 @@ body {
   border-bottom: 1px solid #e2e8f0;
   padding-bottom: 10px;
   font-size: 1.1rem;
+}
+
+.demo-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.08), rgba(59, 130, 246, 0.04));
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.demo-section:hover::after {
+  opacity: 1;
 }

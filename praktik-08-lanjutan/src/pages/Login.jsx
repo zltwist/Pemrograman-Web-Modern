@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 // Komponen utama Login
 const Login = () => {
   return (
-    <div>
-      <div>
+    <div className="login-card">
+      <div className="login-copy">
         <h1>Login Page</h1>
         <p>Please enter your credentials to log in.</p>
       </div>
@@ -43,25 +43,27 @@ const FormLogin = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="login-form">
       <div>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
           name="username"
           value={username}
           onChange={handleUsernameChange}
+          placeholder="Masukkan username"
         />
       </div>
       <div>
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           id="password"
           name="password"
           value={password}
           onChange={handlePasswordChange}
+          placeholder="Masukkan password"
         />
       </div>
       <button type="submit">Login</button>
