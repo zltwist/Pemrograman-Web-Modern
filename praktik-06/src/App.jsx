@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React  from "react";
 import LifecycleDemo from "./components/LifecycleDemo.jsx";
 import EffectDependenciesDemo from "./components/EffectDependenciesDemo.jsx";
@@ -7,18 +6,13 @@ import "./Styles.css";
 
 function App() {
   return (
-    <>
-<Identity />
-<div>
-<div className="App">
+    <div className="App">
       <h1>React useEffect Demonstration</h1>
       <LifecycleDemo />
       <EffectDependenciesDemo />
       <DataFetchingDemo />
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

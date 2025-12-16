@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React, { useState } from 'react';
 import './App.css';
 import Counter from './Counter';
@@ -8,10 +7,7 @@ function App() {
   const [currentView, setCurrentView] = useState('counter');
 
   return (
-    <>
-<Identity />
-<div>
-<div className="App">
+    <div className="App">
       <header className="App-header">
         <h1>State Management dengan useState</h1>
         <nav className="nav-tabs">
@@ -39,9 +35,7 @@ function App() {
         <p>Pertemuan 4 - State Management Dasar</p>
       </footer>
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

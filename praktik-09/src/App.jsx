@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { UserProvider } from './context/UserContext';
@@ -9,10 +8,7 @@ import './App.css';
 
 function App() {
   return (
-    <>
-<Identity />
-<div>
-<ThemeProvider>
+    <ThemeProvider>
       <UserProvider>
         <CartProvider>
           <div className="app">
@@ -22,9 +18,7 @@ function App() {
         </CartProvider>
       </UserProvider>
     </ThemeProvider>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

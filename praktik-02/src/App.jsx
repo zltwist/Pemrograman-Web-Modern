@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React, { useState } from 'react';
 import './App.css';
 import UserProfile from './components/UserProfile';
@@ -9,15 +8,12 @@ function App() {
   const userData = {
     name: "Sarah Johnson",
     email: "sarah@example.com",
-    avatar: "vite.svg",
+    avatar: "/vite.svg",
     joinDate: "2023-01-15"
   };
 
   return (
-    <>
-<Identity />
-<div>
-<div className="App">
+    <div className="App">
       <h1>Demo JSX dan Rendering</h1>
 
       {/* Toggle login state */}
@@ -39,9 +35,7 @@ function App() {
         Status: {isLoggedIn ? '✅ Berhasil login' : '❌ Belum login'}
       </div>
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

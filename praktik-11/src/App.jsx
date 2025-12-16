@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React from 'react';
 import CounterDemo from './components/CounterDemo';
 import FormDemo from './components/FormDemo';
@@ -10,10 +9,7 @@ import './Style.css';
 
 function App() {
   return (
-    <>
-<Identity />
-<div>
-<div className="app">
+    <div className="app">
       <h1>Custom Hooks & Reusability</h1>
 
       <div className="demo-section">
@@ -41,9 +37,7 @@ function App() {
         <ToggleDemo />
       </div>
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

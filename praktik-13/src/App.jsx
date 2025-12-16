@@ -1,16 +1,15 @@
-import Identity from './components/Identity';
-import ProductApp from './ProductApp';
-import './App.css';
+import { useState } from 'react'
+import ProductApp from './ProductApp'
 
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
-      <Identity />
-      <div className="portfolio-wrapper">
-        <ProductApp />
-      </div>
+      <ProductApp />
     </>
-  );
+  )
 }
 
-export default App;
+export default App
+

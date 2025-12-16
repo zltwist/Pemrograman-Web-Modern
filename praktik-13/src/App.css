@@ -1,118 +1,42 @@
 #root {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem 1rem 3rem;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fb;
-  min-height: 100vh;
-}
-
-.portfolio-wrapper {
-  margin-top: 24px;
-  padding: 24px;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
-}
-
-.product-app h1 {
-  margin-bottom: 12px;
-  color: #0f172a;
+  padding: 2rem;
   text-align: center;
 }
 
-.product-app h2 {
-  margin: 24px 0 12px;
-  color: #1e293b;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.product-app form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  border: 1px solid #e2e8f0;
-  padding: 16px;
-  border-radius: 12px;
-  background: #f8fafc;
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.product-form input {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5f5;
-  font-size: 1rem;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
 }
 
-.product-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+.card {
+  padding: 2em;
 }
 
-.product-form button {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  background: #2563eb;
-  color: #fff;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.product-form button:nth-of-type(2) {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
-.product-table-wrapper {
-  overflow-x: auto;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-top: 12px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-}
-
-th,
-td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #e2e8f0;
-  text-align: left;
-}
-
-th {
-  background: #f8fafc;
-  color: #475569;
-}
-
-td button {
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-right: 8px;
-  background: #0ea5e9;
-  color: #fff;
-}
-
-td button.danger {
-  background: #ef4444;
-}
-
-.product-error {
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #fecaca;
-  background: #fee2e2;
-  color: #b91c1c;
-}
-
-.product-empty {
-  padding: 16px;
-  text-align: center;
-  color: #475569;
+.read-the-docs {
+  color: #888;
 }

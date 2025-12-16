@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React, { useState } from 'react';
 import './App.css';
 
@@ -12,7 +11,7 @@ function App() {
   // State untuk data user yang login
   const [currentUser] = useState({
     name: 'Admin',
-    avatar: 'vite.svg'
+    avatar: './admin.png'
   });
 
   // State untuk data users
@@ -22,7 +21,7 @@ function App() {
       name: 'Ahmad Rizki',
       email: 'ahmad@example.com',
       role: 'Admin',
-      avatar: 'vite.svg',
+      avatar: './user.png',
       isActive: true
     },
     {
@@ -30,7 +29,7 @@ function App() {
       name: 'Sari Dewi',
       email: 'sari@example.com',
       role: 'User',
-      avatar: 'vite.svg',
+      avatar: './user.png',
       isActive: true
     },
     {
@@ -38,7 +37,7 @@ function App() {
       name: 'Budi Santoso',
       email: 'budi@example.com',
       role: 'Moderator',
-      avatar: 'vite.svg',
+      avatar: './user.png',
       isActive: false
     }
   ]);
@@ -117,10 +116,7 @@ function App() {
   };
 
   return (
-    <>
-<Identity />
-<div>
-<div className="App">
+    <div className="App">
       {/* Header Component dengan props */}
       <Header
         title="Demo Komponen React dengan Props"
@@ -172,9 +168,7 @@ function App() {
         </section>
       </main>
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;

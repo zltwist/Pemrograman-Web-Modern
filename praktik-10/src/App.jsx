@@ -1,4 +1,3 @@
-import Identity from './components/Identity';
 import React from 'react';
 import BasicCSS from './components/BasicCSS';
 import CSSModules from './components/CSSModules';
@@ -11,10 +10,7 @@ import { Typography } from '@mui/material';
 
 function App() {
   return (
-    <>
-<Identity />
-<div>
-<div className="app">
+    <div className="app">
       <Typography variant="h5" component="h1" gutterBottom>
         Demo Berbagai Metode Styling di React
       </Typography>
@@ -49,9 +45,7 @@ function App() {
         <MaterialUI />
       </div>
     </div>
-  
-</div>
-</>);
+  );
 }
 
 export default App;
