@@ -1,164 +1,241 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 
-const defaultProducts = [
-  { id: 1, name: 'Laptop Pro 15"', price: 15500000 },
-  { id: 2, name: 'Mechanical Keyboard', price: 1350000 },
-  { id: 3, name: 'Noise Cancelling Headset', price: 2750000 },
-];
+const API_URL = "http://localhost:8080/api.php";
 
-const ProductApp = () => {
-  const [products, setProducts] = useState(defaultProducts);
-  const [form, setForm] = useState({ id: null, name: '', price: '' });
-  const [isEditing, setIsEditing] = useState(false);
-  const [error, setError] = useState('');
+function ProductApp() {
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({ name: "", price: "" });
+  const [editingProduct, setEditingProduct] = useState(null);
+  const [error, setError] = useState(null);
 
-  const resetForm = () => {
-    setForm({ id: null, name: '', price: '' });
-    setIsEditing(false);
-    setError('');
+  const fetchProducts = () => {
+    setError(null);
+    fetch(API_URL)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal mengambil data produk");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          setProducts(data.data);
+        } else {
+          setError(data.message || "Gagal mengambil data produk.");
+        }
+      })
+      .catch((err) => {
+        setError("Error koneksi: " + err.message);
+        console.error("Fetch error:", err);
+      });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-  const validate = () => {
-    if (!form.name.trim()) {
-      setError('Nama produk wajib diisi.');
-      return false;
-    }
-    const parsedPrice = Number(form.price);
-    if (Number.isNaN(parsedPrice) || parsedPrice <= 0) {
-      setError('Harga harus berupa angka positif.');
-      return false;
-    }
-    return true;
-  };
-
-  const handleSubmit = (e) => {
+  const handleAddProduct = (e) => {
     e.preventDefault();
-    if (!validate()) return;
+    setError(null);
 
-    const parsedPrice = Number(form.price);
-
-    if (isEditing) {
-      setProducts((prev) =>
-        prev.map((product) =>
-          product.id === form.id ? { ...product, name: form.name.trim(), price: parsedPrice } : product
-        )
-      );
-    } else {
-      const nextId = products.length ? Math.max(...products.map((p) => p.id)) + 1 : 1;
-      setProducts((prev) => [
-        ...prev,
-        {
-          id: nextId,
-          name: form.name.trim(),
-          price: parsedPrice,
-        },
-      ]);
+    const priceValue = parseFloat(newProduct.price);
+    if (!newProduct.name || isNaN(priceValue) || priceValue <= 0) {
+      setError("Nama produk dan harga yang valid harus diisi.");
+      return;
     }
 
-    resetForm();
+    fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: newProduct.name, price: priceValue }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Gagal menambah produk");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          alert(data.message);
+          setNewProduct({ name: "", price: "" });
+          fetchProducts();
+        } else {
+          setError(data.message || "Gagal menambah produk.");
+        }
+      })
+      .catch((err) => {
+        setError("Error koneksi: " + err.message);
+        console.error("Post error:", err);
+      });
   };
 
-  const startEdit = (product) => {
-    setForm({ id: product.id, name: product.name, price: product.price });
-    setIsEditing(true);
-    setError('');
+  const handleUpdateProduct = (e) => {
+    e.preventDefault();
+    setError(null);
+    if (!editingProduct) return;
+
+    const priceValue = parseFloat(editingProduct.price);
+    if (!editingProduct.name || isNaN(priceValue) || priceValue <= 0) {
+      setError("Nama produk dan harga yang valid harus diisi.");
+      return;
+    }
+
+    fetch(`${API_URL}?id=${editingProduct.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: editingProduct.name,
+        price: priceValue,
+      }),
+    })
+      .then((response) => {
+        if (response.status === 404) {
+          throw new Error(
+            "Produk tidak ditemukan atau tidak ada perubahan data."
+          );
+        }
+        if (!response.ok) {
+          throw new Error("Gagal memperbarui produk");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          alert(data.message);
+          setEditingProduct(null);
+          fetchProducts();
+        } else {
+          setError(data.message || "Gagal memperbarui produk.");
+        }
+      })
+      .catch((err) => {
+        setError("Error koneksi atau data: " + err.message);
+        console.error("Put error:", err);
+      });
   };
 
-  const deleteProduct = (id) => {
-    if (!window.confirm('Yakin ingin menghapus produk ini?')) return;
-    setProducts((prev) => prev.filter((product) => product.id !== id));
-    if (isEditing && form.id === id) {
-      resetForm();
+  const handleDeleteProduct = (id) => {
+    setError(null);
+    if (window.confirm("Yakin ingin menghapus produk ini?")) {
+      fetch(`${API_URL}?id=${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.status === 404) {
+            throw new Error("Produk tidak ditemukan.");
+          }
+          if (!response.ok) {
+            throw new Error("Gagal menghapus produk");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success) {
+            alert(data.message);
+            fetchProducts();
+          } else {
+            setError(data.message || "Gagal menghapus produk.");
+          }
+        })
+        .catch((err) => {
+          setError("Error koneksi atau data: " + err.message);
+          console.error("Delete error:", err);
+        });
     }
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Manajemen Produk</h1>
+    <div className="product-app">
+      <h1>Manajemen Produk &#128722;</h1>
+
       {error && (
-        <p style={{ color: 'red', border: '1px solid red', padding: 10 }}>
-          {error}
-        </p>
+        <p className="product-error">Error: {error}</p>
       )}
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
-        <div style={{ marginBottom: 10 }}>
-          <label style={{ display: 'block', marginBottom: 4 }}>Nama Produk</label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            placeholder="Nama produk"
-            style={{ width: '100%', padding: 8 }}
-          />
-        </div>
-
-        <div style={{ marginBottom: 10 }}>
-          <label style={{ display: 'block', marginBottom: 4 }}>Harga (Rp)</label>
-          <input
-            type="number"
-            name="price"
-            value={form.price}
-            onChange={handleChange}
-            placeholder="Contoh: 250000"
-            style={{ width: '100%', padding: 8 }}
-          />
-        </div>
-
-        <button type="submit">
-          {isEditing ? 'Simpan Perubahan' : 'Tambah Produk'}
-        </button>
-        {isEditing && (
-          <button type="button" onClick={resetForm} style={{ marginLeft: 10 }}>
-            Batal
+      <h2>{editingProduct ? "Edit Produk" : "Tambah Produk Baru"}</h2>
+      <form
+        onSubmit={editingProduct ? handleUpdateProduct : handleAddProduct}
+        className="product-form"
+      >
+        <input
+          type="text"
+          placeholder="Nama Produk"
+          value={editingProduct ? editingProduct.name : newProduct.name}
+          onChange={(e) =>
+            editingProduct
+              ? setEditingProduct({ ...editingProduct, name: e.target.value })
+              : setNewProduct({ ...newProduct, name: e.target.value })
+          }
+          required
+        />
+        <input
+          type="number"
+          placeholder="Harga"
+          value={editingProduct ? editingProduct.price : newProduct.price}
+          onChange={(e) =>
+            editingProduct
+              ? setEditingProduct({ ...editingProduct, price: e.target.value })
+              : setNewProduct({ ...newProduct, price: e.target.value })
+          }
+          step="0.01"
+          required
+        />
+        <div className="product-actions">
+          <button type="submit">
+            {editingProduct ? "Simpan Perubahan" : "Tambah Produk"}
           </button>
-        )}
+          {editingProduct && (
+            <button type="button" onClick={() => setEditingProduct(null)}>
+              Batal Edit
+            </button>
+          )}
+        </div>
       </form>
 
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>ID</th>
-            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Nama</th>
-            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Harga</th>
-            <th style={{ borderBottom: '1px solid #ccc', padding: 8 }}>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.length === 0 ? (
-            <tr>
-              <td colSpan={4} style={{ padding: 12, textAlign: 'center' }}>
-                Belum ada data produk.
-              </td>
-            </tr>
-          ) : (
-            products.map((product) => (
-              <tr key={product.id}>
-                <td style={{ padding: 8 }}>{product.id}</td>
-                <td style={{ padding: 8 }}>{product.name}</td>
-                <td style={{ padding: 8 }}>Rp {product.price.toLocaleString('id-ID')}</td>
-                <td style={{ padding: 8 }}>
-                  <button onClick={() => startEdit(product)}>Edit</button>
-                  <button
-                    onClick={() => deleteProduct(product.id)}
-                    style={{ marginLeft: 8, backgroundColor: '#d9534f', color: '#fff' }}
-                  >
-                    Hapus
-                  </button>
-                </td>
+      <h2>Daftar Produk</h2>
+      {products.length === 0 ? (
+        <p className="product-empty">Tidak ada produk ditemukan.</p>
+      ) : (
+        <div className="product-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nama</th>
+                <th>Harga</th>
+                <th>Aksi</th>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {products.map((product) => (
+                <tr key={product.id}>
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>{parseFloat(product.price).toFixed(2)}</td>
+                  <td>
+                    <button onClick={() => setEditingProduct({ ...product })}>
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteProduct(product.id)}
+                      className="danger"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default ProductApp;

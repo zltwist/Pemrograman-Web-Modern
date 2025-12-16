@@ -8,7 +8,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="App">
       <h1>React Event Handling dan Form Demo</h1>
       <EventDemo />

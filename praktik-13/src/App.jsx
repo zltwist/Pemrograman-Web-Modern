@@ -1,11 +1,14 @@
 import Identity from './components/Identity';
 import ProductApp from './ProductApp';
+import './App.css';
 
 function App() {
   return (
     <>
       <Identity />
-      <ProductApp />
+      <div className="portfolio-wrapper">
+        <ProductApp />
+      </div>
     </>
   );
 }

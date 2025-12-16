@@ -12,7 +12,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="app">
       <h1>Custom Hooks & Reusability</h1>
 

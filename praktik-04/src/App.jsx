@@ -10,7 +10,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="App">
       <header className="App-header">
         <h1>State Management dengan useState</h1>

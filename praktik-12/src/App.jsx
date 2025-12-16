@@ -1,13 +1,15 @@
 import React from "react";
 import Identity from "./components/Identity";
-import EnrollmentForm from "./components/EnrollmentForm.jsx";
+import Counter from "./components/Counter.jsx";
+import "./App.css";
 
 const App = () => {
   return (
     <>
       <Identity />
-      <div className="rangga-wrapper">
-        <EnrollmentForm />
+      <div className="portfolio-wrapper">
+        <h2>Redux Toolkit Counter Example</h2>
+        <Counter />
       </div>
     </>
   );

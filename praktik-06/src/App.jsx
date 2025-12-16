@@ -9,7 +9,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="App">
       <h1>React useEffect Demonstration</h1>
       <LifecycleDemo />

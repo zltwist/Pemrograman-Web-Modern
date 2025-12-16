@@ -11,7 +11,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <ThemeProvider>
       <UserProvider>
         <CartProvider>

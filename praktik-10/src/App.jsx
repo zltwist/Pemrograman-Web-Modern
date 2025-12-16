@@ -13,7 +13,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="app">
       <Typography variant="h5" component="h1" gutterBottom>
         Demo Berbagai Metode Styling di React

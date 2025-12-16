@@ -16,7 +16,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="App">
       <h1>Demo JSX dan Rendering</h1>
 

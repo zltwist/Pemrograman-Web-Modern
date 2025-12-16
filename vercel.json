@@ -10,7 +10,61 @@
     }
   ],
   "rewrites": [
-    { "source": "/praktik-08/((?!assets/|.*\\..*).*)", "destination": "/praktik-08/index.html" },
-    { "source": "/praktik-08-lanjutan/((?!assets/|.*\\..*).*)", "destination": "/praktik-08-lanjutan/index.html" }
+    {
+      "source": "/praktik-01/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-01/index.html"
+    },
+    {
+      "source": "/praktik-02/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-02/index.html"
+    },
+    {
+      "source": "/praktik-03/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-03/index.html"
+    },
+    {
+      "source": "/praktik-04/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-04/index.html"
+    },
+    {
+      "source": "/praktik-05/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-05/index.html"
+    },
+    {
+      "source": "/praktik-06/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-06/index.html"
+    },
+    {
+      "source": "/praktik-07/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-07/index.html"
+    },
+    {
+      "source": "/praktik-08/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-08/index.html"
+    },
+    {
+      "source": "/praktik-08-lanjutan/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-08-lanjutan/index.html"
+    },
+    {
+      "source": "/praktik-09/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-09/index.html"
+    },
+    {
+      "source": "/praktik-10/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-10/index.html"
+    },
+    {
+      "source": "/praktik-11/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-11/index.html"
+    },
+    {
+      "source": "/praktik-12/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-12/index.html"
+    },
+    {
+      "source": "/praktik-13/((?!assets/|.*\\..*).*)",
+      "destination": "/praktik-13/index.html"
+    }
   ]
 }

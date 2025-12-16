@@ -9,7 +9,7 @@ function App() {
   return (
     <>
 <Identity />
-<div className="rangga-wrapper">
+<div>
 <div className="App">
       <h1>Praktik Data Fetching - Pertemuan 7</h1>
       <p>Integrasi REACT dengan RESTful API</p>
